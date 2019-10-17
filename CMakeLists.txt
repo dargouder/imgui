@@ -22,6 +22,13 @@ project(imgui)
     add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
 	if(APPLE)
+		#copying built lib to the output
+		add_custom_command(
+		TARGET ${PROJECT_NAME} 
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+		  $<TARGET_FILE:${PROJECT_NAME}>
+		  ${CMAKE_SOURCE_DIR}/../builtDependencies/apple/$<CONFIGURATION>/$<TARGET_FILE_NAME:${PROJECT_NAME}>)		
 	elseif(UNIX)
 	elseif(WIN32)
 		#copying built lib to the output
